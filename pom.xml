@@ -1,0 +1,133 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.browserstack</groupId>
+    <artifactId>testng-browserstack-java21</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>testng-browserstack</name>
+    <url>https://www.github.com/browserstack/testng-browserstack</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <testng.version>7.11.0</testng.version>
+        <surefire.version>3.5.2</surefire.version>
+        <selenium.version>4.29.0</selenium.version>
+        <json-simple.version>1.1.1</json-simple.version>
+        <browserstack.version>1.30.7</browserstack.version>
+        <config.file>config/sample-test.testng.xml</config.file>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.browserstack</groupId>
+            <artifactId>browserstack-java-sdk</artifactId>
+            <version>${browserstack.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.browserstack/browserstack-java-sdk -->
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>getClasspathFilenames</id>
+                        <goals>
+                            <goal>properties</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${config.file}</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <argLine>
+                        <!-- Add BrowserStack Java SDK as a Java agent -->
+                        <!-- C:\Users\MBach\.m2\repository\com\browserstack\browserstack-java-sdk\1.30.7\browserstack-java-sdk-1.30.7.jar -->
+                        -javaagent:${settings.localRepository}/com/browserstack/browserstack-java-sdk/${browserstack.version}/browserstack-java-sdk-${browserstack.version}.jar
+                    </argLine>
+                    <forkCount>1</forkCount>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.0</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>sample-local-test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${surefire.version}</version>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>config/sample-local-test.testng.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                            <argLine>
+                                -javaagent:${settings.localRepository}/com/browserstack/browserstack-java-sdk/${browserstack.version}/browserstack-java-sdk-${browserstack.version}.jar
+                            </argLine>
+                            <forkCount>1</forkCount>
+                        </configuration>
+
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>sample-test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${surefire.version}</version>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>config/sample-test.testng.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                            <argLine>
+                                -javaagent:${settings.localRepository}/com/browserstack/browserstack-java-sdk/${browserstack.version}/browserstack-java-sdk-${browserstack.version}.jar
+                            </argLine>
+                            <forkCount>1</forkCount>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
