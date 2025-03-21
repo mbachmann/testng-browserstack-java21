@@ -1,7 +1,9 @@
 # testng-browserstack-java21
+![testng-browserstack-java21](https://github.com/mbachmann/testng-browserstack-java21/actions/workflows/Semgrep.yml/badge.svg)
+![testng-browserstack-java21](https://github.com/mbachmann/testng-browserstack-java21/actions/workflows/maven-workflow-run.yml/badge.svg)
 
-[![Build Status](https://travis-ci.com/browserstack/testng-browserstack-java21.svg?branch=master)](https://travis-ci.com/browserstack/testng-browserstack-java21)
 
+This repository contains example of running TestNG tests on BrowserStack using Java 21.
 
 [TestNG](http://testng.org) Integration with BrowserStack.
 
