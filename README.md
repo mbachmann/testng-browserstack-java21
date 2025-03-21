@@ -1,5 +1,7 @@
 # testng-browserstack-java21
 
+[![Build Status](https://travis-ci.com/browserstack/testng-browserstack-java21.svg?branch=master)](https://travis-ci.com/browserstack/testng-browserstack-java21)
+
 
 [TestNG](http://testng.org) Integration with BrowserStack.
 
